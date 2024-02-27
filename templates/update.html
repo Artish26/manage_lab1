@@ -1,0 +1,372 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Брифінг
+{% endblock %}
+
+{% block body %}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script type="text/javascript">
+    function CreatePDFfromHTML() {
+    var HTML_Width = $(".content").width();
+    var HTML_Height = $(".content").height();
+    var top_left_margin = 15;
+    var PDF_Width = HTML_Width + (top_left_margin * 2);
+    var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+    var canvas_image_width = HTML_Width;
+    var canvas_image_height = HTML_Height;
+
+    var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+
+    html2canvas($(".content")[0]).then(function (canvas) {
+        var imgData = canvas.toDataURL("image/jpeg", 1.0);
+        var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+        pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+        for (var i = 1; i <= totalPDFPages; i++) {
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+        }
+        pdf.save("Бриф.pdf");
+        $(".content").hide();
+    });
+}
+    </script>
+    <div>
+        <h1 style="text-align: center;">Брифінг</h1>
+        <div style="width: 191px; text-align: center; background-color: red; color: white;">
+        </div>
+        <form method="post" enctype=multipart/form-data class="forma" autocomplete="off" id="course">
+
+            <div class="addopisanieblock" id="allblocks">
+                <div class="block">
+                    ПІБ:<br>
+                    <textarea form="course" name="text1" id="text1" maxlength="250" rows="2" cols="95"
+                              style="resize: none;">{{ brief.text1 }}</textarea><br>
+                    Мережа для зв'язку з вами (Посилання, логін, номер, тощо):<br>
+                    <textarea form="course" name="text2" id="text2" maxlength="250" rows="2" cols="95"
+                              style="resize: none;">{{ brief.text2 }}</textarea><br>
+                    Назва компанії:<br>
+                    <textarea form="course" name="text3" id="text3" maxlength="250" rows="2" cols="95"
+                              style="resize: none;">{{ brief.text3 }}</textarea><br>
+                    Унікальна торгівельна пропозиція:<br>
+                    <textarea form="course" name="text4" id="text4" maxlength="250" rows="2" cols="95"
+                              style="resize: none;">{{ brief.text4 }}</textarea><br>
+                    Наведіть 3 цінності ваших послуг, продукту:<br>
+                    <textarea form="course" name="text5" id="text5" maxlength="250" rows="2" cols="95"
+                              style="resize: none;">{{ brief.text5 }}</textarea><br>
+                    Наведіть приклад цільової аудиторії (Вік, стать, соціальна група, інтереси):<br>
+                    <textarea form="course" name="text6" id="text6" maxlength="250" rows="2" cols="95"
+                              style="resize: none;">{{ brief.text6 }}</textarea><br>
+                    <fieldset>
+                        <legend>Ціль розробки сайту:</legend>
+                        <div style="display: flex">
+                            <input type="checkbox" id="prod" name="prod" style="display: inline; width: 20%"
+                                    {% if brief.prod == 1 %}
+                                        {{ "checked" }}
+                                    {% endif %}
+                            />
+                            <label for="prod" style="display: inline">Продаж товарів</label>
+                        </div>
+                        <hr>
+                        <div style="display: flex">
+                            <input type="checkbox" id="posl" name="posl" style="display: inline; width: 20%"
+                                    {% if brief.posl %}
+                                        {{ "checked" }}
+                                    {% endif %}
+                            />
+                            <label for="posl" style="display: inline">Продаж або надання послуг</label>
+                        </div>
+                        <hr>
+                        <div style="display: flex">
+                            <input type="checkbox" id="rek" name="rek" style="display: inline; width: 20%"
+                                    {% if brief.rek %}
+                                        {{ "checked" }}
+                                    {% endif %}
+                            />
+                            <label for="rek" style="display: inline">Реклама компанії (сайт візитка, вітрина
+                                товарів)</label>
+                        </div>
+                        <hr>
+                        <div style="display: flex">
+                            <input type="checkbox" id="pokr" name="pokr" style="display: inline; width: 20%"
+                                    {% if brief.pokr %}
+                                        {{ "checked" }}
+                                    {% endif %}
+                            />
+                            <label for="pokr" style="display: inline">Покращення інсуючого сайту</label>
+                        </div>
+                        <hr>
+                        <div style="display: flex">
+                            <input type="checkbox" id="seo" name="seo" style="display: inline; width: 20%"
+                                    {% if brief.seo %}
+                                        {{ "checked" }}
+                                    {% endif %}
+                            />
+                            <label for="seo" style="display: inline">SEO-оптимізація сайту</label>
+                        </div>
+                        <hr>
+                        <div style="display: flex">
+                            <input type="checkbox" id="rebr" name="rebr" style="display: inline; width: 20%"
+                                    {% if brief.rebr %}
+                                        {{ "checked" }}
+                                    {% endif %}
+                            />
+                            <label for="rebr" style="display: inline">Ребрендинг сайту</label>
+                        </div>
+                    </fieldset>
+                    Наведіть приклади сайтів конкурентів:<br>
+                    <textarea form="course" name="text9" id="text9" maxlength="250" rows="2" cols="95"
+                              style="resize: none;">{{ brief.text9 }}</textarea><br>
+                    Що подобається на сайтах конкурентів:<br>
+                    <textarea form="course" name="text10" id="text10" maxlength="250" rows="2" cols="95"
+                              style="resize: none;">{{ brief.text10 }}</textarea><br>
+                    Що не подобається на сайтах конкурентів:<br>
+                    <textarea form="course" name="text11" id="text11" maxlength="250" rows="2" cols="95"
+                              style="resize: none;">{{ brief.text11 }}</textarea><br>
+                    Вкажіть масштаб інтересів (географія, національність):<br>
+                    <textarea form="course" name="text12" id="text12" maxlength="250" rows="2" cols="95"
+                              style="resize: none;">{{ brief.text12 }}</textarea><br>
+                    Чи має ваша компанія брендбук, якщо так завантажте його:<br>
+                    {% if brief.brand == '' %}
+                        <div class="addimageblock">
+                            <input id="imagefile" type="button" class="addimage"
+                                   onclick="document.getElementById('image').click();" value="Додати брендбук">
+                            <input onchange="loadFile(event)" id="image" type="file" name="image"
+                                   style="display: none;"/>
+                        </div>
+                    {% else %}
+                        <div class="addimageblock" style="text-align: center">
+                            <a id="imagefile" type="button" class="addimage" href="/brief/{{ brief.id }}/send"
+                               target="_blank">Завантажити</a>
+                        </div>
+                    {% endif %}
+
+                    <hr>
+                </div>
+                <br>
+                Наведіть прикдади сайтів, дизайн яких вам подобається:<br>
+                <textarea form="course" name="text14" id="text14" maxlength="250" rows="2" cols="95"
+                          style="resize: none;">{{ brief.text14 }}</textarea><br>
+                <fieldset>
+                    <legend>Який настрій має викликати дизайн сайту:</legend>
+                    <div style="display: flex">
+                        <input type="checkbox" id="korp" name="korp" style="display: inline; width: 20%"
+                                {% if brief.korp %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="korp" style="display: inline">Суворий корпоративний</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="yask" name="yask" style="display: inline; width: 20%"
+                                {% if brief.yask %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="yask" style="display: inline">Яскравий, помітний</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="poz" name="poz" style="display: inline; width: 20%"
+                                {% if brief.poz %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="poz" style="display: inline">Позитивний і веселий</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="zobr" name="zobr" style="display: inline; width: 20%"
+                                {% if brief.zobr %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="zobr" style="display: inline">Дизайн насичений зображеннями</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="dinam" name="dinam" style="display: inline; width: 20%"
+                                {% if brief.dinam %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="dinam" style="display: inline">Динамічний сайт (анімації, відеофони)</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="stat" name="stat" style="display: inline; width: 20%"
+                                {% if brief.stat %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="stat" style="display: inline">Статичний сайт (без анімації та відволікаючих
+                            елементів)</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="mini" name="mini" style="display: inline; width: 20%"
+                                {% if brief.mini %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="mini" style="display: inline">Мінімалістичний дизайн</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="funk" name="funk" style="display: inline; width: 20%"
+                                {% if brief.funk %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="funk" style="display: inline">Функціональний дизайн</label>
+                    </div>
+                </fieldset>
+                Що повинна показувати головна сторінка сайту:<br>
+                <textarea form="course" name="text16" id="text16" maxlength="250" rows="2" cols="95"
+                          style="resize: none;">{{ brief.text16 }}</textarea><br>
+                Перерахуйте можливості, які мають бути на вашому сайті:<br>
+                <textarea form="course" name="text17" id="text17" maxlength="250" rows="2" cols="95"
+                          style="resize: none;">{{ brief.text17 }}</textarea><br>
+                Перерахуйте мови, які будуть присутні на сайті (для одномовного сайту вкажіть одну):<br>
+                <textarea form="course" name="text18" id="text18" maxlength="250" rows="2" cols="95"
+                          style="resize: none;">{{ brief.text18 }}</textarea><br>
+                <fieldset>
+                    <legend>Оберіть додаткові модулі сайту:</legend>
+                    <div style="display: flex">
+                        <input type="checkbox" id="feedb" name="feedb" style="display: inline; width: 20%"
+                                {% if brief.feedb %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="feedb" style="display: inline">Зворотній зв'язок</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="pop" name="pop" style="display: inline; width: 20%"
+                                {% if brief.pop %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="pop" style="display: inline">Попапи</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="nov" name="nov" style="display: inline; width: 20%"
+                                {% if brief.nov %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="nov" style="display: inline">Підписка на новини (з розсилкою)</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="faq" name="faq" style="display: inline; width: 20%"
+                                {% if brief.faq %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="faq" style="display: inline">FAQ</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="analit" name="analit" style="display: inline; width: 20%"
+                                {% if brief.analit %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="analit" style="display: inline">Аналітика</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="crm" name="crm" style="display: inline; width: 20%"
+                                {% if brief.crm %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="crm" style="display: inline">CRM система</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="mon" name="mon" style="display: inline; width: 20%"
+                                {% if brief.mon %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="mon" style="display: inline">Монетизація</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Наповнювати сайт ви будете самостійно:</legend>
+                    <div style="display: flex">
+                        <input type="radio" value="True" id="napov" name="napov" style="display: inline; width: 20%"
+                                {% if brief.napov %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="napov" style="display: inline">Так</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="radio" value="False" id="nenapov" name="napov" style="display: inline; width: 20%"
+                                {% if brief.napov == False %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="nenapov" style="display: inline">Ні</label>
+                    </div>
+                </fieldset>
+                Надайте посилання на матеріали, які можуть бути використанні для початкового наповнення сайту:<br>
+                <textarea form="course" name="text21" id="text21" maxlength="250" rows="2" cols="95"
+                          style="resize: none;">{{ brief.text21 }}</textarea><br>
+                <fieldset>
+                    <legend>Чи є у вас домен для сайту:</legend>
+                    <div style="display: flex">
+                        <input type="radio" value="True" id="dom" name="dom" style="display: inline; width: 20%"
+                                {% if brief.dom %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="dom" style="display: inline">Так</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="radio" value="False" id="nedom" name="dom" style="display: inline; width: 20%"
+                                {% if brief.dom == 0 %}
+                                    {{ "checked" }}
+                                {% endif %}
+                        />
+                        <label for="nedom" style="display: inline">Ні</label>
+                    </div>
+                </fieldset>
+                Якщо ні, який має бути домен (наприклад, повинен показувати назву компанії, повністю або частково):<br>
+                <textarea form="course" name="text23" id="text23" maxlength="250" rows="2" cols="95"
+                          style="resize: none;">{{ brief.text23 }}</textarea><br>
+                Ви бажаєте отримати сайт готовий до запуску (питання хостингу вирішити самим) або запущений сайт:<br>
+                <textarea form="course" name="text24" id="text24" maxlength="250" rows="2" cols="95"
+                          style="resize: none;">{{ brief.text24 }}</textarea><br>
+                Зазначте бажаний термін розробки проєкту:<br>
+                <textarea form="course" name="text25" id="text25" maxlength="250" rows="2" cols="95"
+                          style="resize: none;">{{ brief.text25 }}</textarea><br>
+                Зазначте бажаний бюджет проекту:<br>
+                <textarea form="course" name="text26" id="text26" maxlength="250" rows="2" cols="95"
+                          style="resize: none;">{{ brief.text26 }}</textarea><br>
+
+                <div class="submitbuttonblock" id="submitbuttonblock" style="content-align: center">
+                    <input type="submit" value="Оновити" class="submitbutton">
+                    <br>
+                    <a class="submitbutton" style="display: flex; width: 100%;color: red; justify-content: center"
+                       href="/delete/{{ brief.id }}"><span>Видалити</span></a>
+                    <br>
+                    <button type="button" id="cmd" class="submitbutton" onclick="CreatePDFfromHTML()">Згенерувати PDF</button>
+                </div>
+
+            </div>
+        </form>
+        <div>
+
+        </div>
+    </div>
+{% endblock %}

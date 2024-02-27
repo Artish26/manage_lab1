@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Брифінг
+{% endblock %}
+
+{% block body %}
+    <div>
+        <h1 style="text-align: center;">Брифінг</h1>
+        <div style="width: 191px; text-align: center; background-color: red; color: white;">
+        </div>
+        <form method="post" enctype=multipart/form-data class="forma" autocomplete="off" id="course">
+
+            <div class="addopisanieblock" id="allblocks">
+                <div class="block">
+                    ПІБ:<br>
+                    <textarea form="course" name="text1" id="text1" maxlength="250" rows="2" cols="95"
+                              style="resize: none;"></textarea><br>
+                    Мережа для зв'язку з вами (Посилання, логін, номер, тощо):<br>
+                    <textarea form="course" name="text2" id="text2" maxlength="250" rows="2" cols="95"
+                              style="resize: none;"></textarea><br>
+                    Назва компанії:<br>
+                    <textarea form="course" name="text3" id="text3" maxlength="250" rows="2" cols="95"
+                              style="resize: none;"></textarea><br>
+                    Унікальна торгівельна пропозиція:<br>
+                    <textarea form="course" name="text4" id="text4" maxlength="250" rows="2" cols="95"
+                              style="resize: none;"></textarea><br>
+                    Наведіть 3 цінності ваших послуг, продукту:<br>
+                    <textarea form="course" name="text5" id="text5" maxlength="250" rows="2" cols="95"
+                              style="resize: none;"></textarea><br>
+                    Наведіть приклад цільової аудиторії (Вік, стать, соціальна група, інтереси):<br>
+                    <textarea form="course" name="text6" id="text6" maxlength="250" rows="2" cols="95"
+                              style="resize: none;"></textarea><br>
+                    <fieldset>
+                        <legend>Ціль розробки сайту:</legend>
+                        <div style="display: flex">
+                            <input type="checkbox" id="prod" name="prod" style="display: inline; width: 20%"/>
+                            <label for="prod" style="display: inline">Продаж товарів</label>
+                        </div>
+                        <hr>
+                        <div style="display: flex">
+                            <input type="checkbox" id="posl" name="posl" style="display: inline; width: 20%"/>
+                            <label for="posl" style="display: inline">Продаж або надання послуг</label>
+                        </div>
+                        <hr>
+                        <div style="display: flex">
+                            <input type="checkbox" id="rek" name="rek" style="display: inline; width: 20%"/>
+                            <label for="rek" style="display: inline">Реклама компанії (сайт візитка, вітрина
+                                товарів)</label>
+                        </div>
+                        <hr>
+                        <div style="display: flex">
+                            <input type="checkbox" id="pokr" name="pokr" style="display: inline; width: 20%"/>
+                            <label for="pokr" style="display: inline">Покращення інсуючого сайту</label>
+                        </div>
+                        <hr>
+                        <div style="display: flex">
+                            <input type="checkbox" id="seo" name="seo" style="display: inline; width: 20%"/>
+                            <label for="seo" style="display: inline">SEO-оптимізація сайту</label>
+                        </div>
+                        <hr>
+                        <div style="display: flex">
+                            <input type="checkbox" id="rebr" name="rebr" style="display: inline; width: 20%"/>
+                            <label for="rebr" style="display: inline">Ребрендинг сайту</label>
+                        </div>
+                    </fieldset>
+                    Наведіть приклади сайтів конкурентів:<br>
+                    <textarea form="course" name="text9" id="text9" maxlength="250" rows="2" cols="95"
+                              style="resize: none;"></textarea><br>
+                    Що подобається на сайтах конкурентів:<br>
+                    <textarea form="course" name="text10" id="text10" maxlength="250" rows="2" cols="95"
+                              style="resize: none;"></textarea><br>
+                    Що не подобається на сайтах конкурентів:<br>
+                    <textarea form="course" name="text11" id="text11" maxlength="250" rows="2" cols="95"
+                              style="resize: none;"></textarea><br>
+                    Вкажіть масштаб інтересів (географія, національність):<br>
+                    <textarea form="course" name="text12" id="text12" maxlength="250" rows="2" cols="95"
+                              style="resize: none;"></textarea><br>
+                    Чи має ваша компанія брендбук, якщо так завантажте його:<br>
+
+                    <div class="addimageblock">
+                        <input id="imagefile" type="button" class="addimage"
+                               onclick="document.getElementById('image').click();" value="Додати брендбук">
+                        <input onchange="loadFile(event)" id="image" type="file" name="image" style="display: none;"/>
+                    </div>
+
+                    <hr>
+                </div>
+                <br>
+                Наведіть прикдади сайтів, дизайн яких вам подобається:<br>
+                <textarea form="course" name="text14" id="text14" maxlength="250" rows="2" cols="95"
+                          style="resize: none;"></textarea><br>
+                <fieldset>
+                    <legend>Який настрій має викликати дизайн сайту:</legend>
+                    <div style="display: flex">
+                        <input type="checkbox" id="korp" name="korp" style="display: inline; width: 20%"/>
+                        <label for="korp" style="display: inline">Суворий корпоративний</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="yask" name="yask" style="display: inline; width: 20%"/>
+                        <label for="yask" style="display: inline">Яскравий, помітний</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="poz" name="poz" style="display: inline; width: 20%"/>
+                        <label for="poz" style="display: inline">Позитивний і веселий</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="zobr" name="zobr" style="display: inline; width: 20%"/>
+                        <label for="zobr" style="display: inline">Дизайн насичений зображеннями</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="dinam" name="dinam" style="display: inline; width: 20%"/>
+                        <label for="dinam" style="display: inline">Динамічний сайт (анімації, відеофони)</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="stat" name="stat" style="display: inline; width: 20%"/>
+                        <label for="stat" style="display: inline">Статичний сайт (без анімації та відволікаючих елементів)</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="mini" name="mini" style="display: inline; width: 20%"/>
+                        <label for="mini" style="display: inline">Мінімалістичний дизайн</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="funk" name="funk" style="display: inline; width: 20%"/>
+                        <label for="funk" style="display: inline">Функціональний дизайн</label>
+                    </div>
+                </fieldset>
+                Що повинна показувати головна сторінка сайту:<br>
+                <textarea form="course" name="text16" id="text16" maxlength="250" rows="2" cols="95"
+                          style="resize: none;"></textarea><br>
+                Перерахуйте можливості, які мають бути на вашому сайті:<br>
+                <textarea form="course" name="text17" id="text17" maxlength="250" rows="2" cols="95"
+                          style="resize: none;"></textarea><br>
+                Перерахуйте мови, які будуть присутні на сайті (для одномовного сайту вкажіть одну):<br>
+                <textarea form="course" name="text18" id="text18" maxlength="250" rows="2" cols="95"
+                          style="resize: none;"></textarea><br>
+                <fieldset>
+                    <legend>Оберіть додаткові модулі сайту:</legend>
+                    <div style="display: flex">
+                        <input type="checkbox" id="feedb" name="feedb" style="display: inline; width: 20%"/>
+                        <label for="feedb" style="display: inline">Зворотній зв'язок</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="pop" name="pop" style="display: inline; width: 20%"/>
+                        <label for="pop" style="display: inline">Попапи</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="nov" name="nov" style="display: inline; width: 20%"/>
+                        <label for="nov" style="display: inline">Підписка на новини (з розсилкою)</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="faq" name="faq" style="display: inline; width: 20%"/>
+                        <label for="faq" style="display: inline">FAQ</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="analit" name="analit" style="display: inline; width: 20%"/>
+                        <label for="analit" style="display: inline">Аналітика</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="crm" name="crm" style="display: inline; width: 20%"/>
+                        <label for="crm" style="display: inline">CRM система</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="checkbox" id="mon" name="mon" style="display: inline; width: 20%"/>
+                        <label for="mon" style="display: inline">Монетизація</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Наповнювати сайт ви будете самостійно:</legend>
+                    <div style="display: flex">
+                        <input type="radio" value="True" id="napov" name="napov" style="display: inline; width: 20%"/>
+                        <label for="napov" style="display: inline">Так</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="radio" value="False" checked id="nenapov" name="napov" style="display: inline; width: 20%"/>
+                        <label for="nenapov" style="display: inline">Ні</label>
+                    </div>
+                </fieldset>
+                Надайте посилання на матеріали, які можуть бути використанні для початкового наповнення сайту:<br>
+                <textarea form="course" name="text21" id="text21" maxlength="250" rows="2" cols="95"
+                          style="resize: none;"></textarea><br>
+                <fieldset>
+                    <legend>Чи є у вас домен для сайту:</legend>
+                    <div style="display: flex">
+                        <input type="radio" value="True" id="dom" name="dom" style="display: inline; width: 20%"/>
+                        <label for="dom" style="display: inline">Так</label>
+                    </div>
+                    <hr>
+                    <div style="display: flex">
+                        <input type="radio" value="False" checked id="nedom" name="dom" style="display: inline; width: 20%"/>
+                        <label for="nedom" style="display: inline">Ні</label>
+                    </div>
+                </fieldset>
+                Якщо ні, який має бути домен (наприклад, повинен показувати назву компанії, повністю або частково):<br>
+                <textarea form="course" name="text23" id="text23" maxlength="250" rows="2" cols="95"
+                          style="resize: none;"></textarea><br>
+                Ви бажаєте отримати сайт готовий до запуску (питання хостингу вирішити самим) або запущений сайт:<br>
+                <textarea form="course" name="text24" id="text24" maxlength="250" rows="2" cols="95"
+                          style="resize: none;"></textarea><br>
+                Зазначте бажаний термін розробки проєкту:<br>
+                <textarea form="course" name="text25" id="text25" maxlength="250" rows="2" cols="95"
+                          style="resize: none;"></textarea><br>
+                Зазначте бажаний бюджет проекту:<br>
+                <textarea form="course" name="text26" id="text26" maxlength="250" rows="2" cols="95"
+                          style="resize: none;"></textarea><br>
+
+                <div class="submitbuttonblock" id="submitbuttonblock">
+                    <input type="submit" value="Завантажити" class="submitbutton">
+                </div>
+
+            </div>
+        </form>
+        <div>
+
+        </div>
+    </div>
+{% endblock %}

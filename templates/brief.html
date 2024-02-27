@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Бріфи
+{% endblock %}
+
+{% block body %}
+    {% if brifs %}
+        {#        <div class="allalbomblock">#}
+        {% for el in brifs %}
+            <div class="onealbomblock">
+                <div class="albomtitle">
+                    {{ el.text1 }}
+                </div>
+                <a href="/brief/{{ el.id }}" class="albombutton">Перейти</a>
+            </div>
+
+        {% endfor %}
+    {% else %}
+        <div style="justify-content: center;border: 3px solid black;margin: 0 auto;width: fit-content">
+            <div style="">
+                <img style="display: block;" src="/static/img/sadcat.jpg">
+            </div>
+            <div style="text-align: center">
+                Щось не так.
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

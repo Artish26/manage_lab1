@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block body %}
+<div>
+    <h1 style="text-align: center;">Login</h1>
+    <div style="width: 191px; text-align: center; background-color: red; color: white;">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
+    <form method="post" class="forma" name="login">
+        {{ form.hidden_tag() }}
+        <div class="logpassblock">
+            {{ form.login.label }}
+            {{ form.login(size=24,class="loginpole") }}
+            {{ form.password.label }}
+            {{ form.password(size=24,class="loginpole") }}
+        </div>
+        <hr size="1px" noshade color="grey"></hr>
+        <div class="regblock">
+            <input type="submit" value="Увійти" class="reg">
+        </div>
+    </form>
+</div>
+{% endblock %}
