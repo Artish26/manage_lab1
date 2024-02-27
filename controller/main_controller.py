@@ -1,6 +1,5 @@
 import os
 import shutil
-import flask_login
 from flask import Flask, render_template, url_for, request, redirect, flash, abort
 from flask_login import login_required, login_user
 from werkzeug.security import check_password_hash
@@ -211,7 +210,6 @@ def update(id=0):
         rebr = False
         if 'rebr' in request.form:
             rebr = True
-
         korp = False
         if 'korp' in request.form:
             korp = True
