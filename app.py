@@ -3,7 +3,6 @@ from cfg import app, db
 import controller.main_controller
 
 
-
 with app.app_context():
     db.create_all()
 
